@@ -1,9 +1,10 @@
 
 exports.up = function(knex) {
-    return knex.schema.createTable('artists', table => {
+    return knex.schema.createTable('Artists', table => {
         table.increments()
         table.string('name')
         table.string('genre')
+        table.timestamp("created_at").defaultTo(knex.fn.now());
     }) 
 };
 
