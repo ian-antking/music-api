@@ -28,7 +28,7 @@ app.get('/artists/:id', (req, res) => {
     const {id} = req.params;
     database('Artists')
         .where({id})
-        .then((artists) => res.status(200).send(artists))
+        .then(([artists]) => res.status(200).send(artists))
         .catch(error => res.status(500).send(error));
 })
 
