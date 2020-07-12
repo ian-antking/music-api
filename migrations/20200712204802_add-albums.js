@@ -17,6 +17,5 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return knex.schema
-    .dropTable('Albums')
-    .dropTable('Artists');
+    .dropTable('Albums');
 };
