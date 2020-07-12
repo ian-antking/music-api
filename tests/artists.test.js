@@ -8,7 +8,7 @@ describe('artists', () => {
         database.destroy()
     })
 
-    beforeEach(async () => {
+    afterEach(async () => {
         await database('Artists')
             .where({})
             .del()
