@@ -1,6 +1,5 @@
 const express = require('express');
 const database = require('../database');
-const { where } = require('../database');
 
 const app = express();
 
