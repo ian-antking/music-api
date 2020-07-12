@@ -28,7 +28,13 @@ app.get('/artists/:id', (req, res) => {
     const {id} = req.params;
     database('Artists')
         .where({id})
-        .then(([artists]) => res.status(200).send(artists))
+        .then(([artist]) => {
+            if (!artist) {
+                res.status(404).send({ error: 'the artist could not be found' })
+            } else {
+                res.status(200).send(artist)
+            }
+        })
         .catch(error => res.status(500).send(error));
 })
 
@@ -40,7 +46,13 @@ app.patch('/artists/:id', (req, res) => {
         .then(() => {
             database('Artists')
                 .where({id})
-                .then(newArtist => res.status(200).send(newArtist))
+                .then(([newArtist]) => {
+                    if (!newArtist) {
+                        res.status(404).send({ error: 'the artist could not be found' })
+                    } else {
+                        res.status(200).send(newArtist)
+                    }
+                })
                 .catch(error => res.status(500).send(error));
         })
         .catch(error => res.status(500).send(error));
@@ -51,7 +63,13 @@ app.delete('/artists/:id', (req, res) => {
     database('Artists')
         .where({id})
         .del()
-        .then(() => res.sendStatus(200))
+        .then(recordsDeleted => {
+            if (!recordsDeleted) {
+                res.status(404).send({ error: 'the artist could not be found' })
+            } else {
+                res.sendStatus(200)
+            }
+        })
         .catch(error => res.status(500).send(error));
 })
 
