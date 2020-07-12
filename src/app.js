@@ -12,7 +12,7 @@ app.post('/artists', (req, res) => {
         .then((id) => {
             database('Artists')
                 .where({id})
-                .then((user) => res.status(201).send(user));
+                .then(([user]) => res.status(201).send(user));
         })
         .catch(error => res.status(500).send(error));
 })

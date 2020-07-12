@@ -8,18 +8,25 @@ describe('artists', () => {
         database.destroy()
     })
 
+    beforeEach(async () => {
+        await database('Artists')
+            .where({})
+            .del()
+    })
+
     describe('POST /artists', () => {
-        it('creates a new artist in the dataase', (done) => {
-            request(app)
-                .post('/artists')
-                .send({
-                    name: 'Tame Impala',
-                    genre: 'rock'
-                })
-                .then(response => {
-                    expect(response.status).to.equal(201);
-                    done();
-                })
+        it('creates a new artist in the dataase', async () => {
+            const response = await request(app).post('/artists').send({
+                name: 'Tame Impala',
+                genre: 'Rock',
+              });
+        
+            await expect(response.status).to.equal(201);
+            await expect(response.body.name).to.equal('Tame Impala');
+
+            const [insertedArtistRecord] = await database('Artists');
+            await expect(insertedArtistRecord.name).to.equal('Tame Impala');
+            await expect(insertedArtistRecord.genre).to.equal('Rock');
         })
     })
 })
