@@ -4,7 +4,8 @@
   "description": "A music library api built with knex.js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "pretest": "npx knex migrate:latest",
+    "test": "mocha tests/**/*.test.js",
     "prestart": "npx knex migrate:latest",
     "start": "nodemon -r dotenv/config index.js"
   },
