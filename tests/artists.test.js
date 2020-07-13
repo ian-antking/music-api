@@ -4,10 +4,6 @@ const database = require('../database');
 const app = require('../src/app');
 
 describe('artists', () => {
-    after(() => {
-        database.destroy()
-    })
-
     afterEach(async () => {
         await database('Artists')
             .where({})
